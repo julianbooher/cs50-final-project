@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ username }}'s Page
+{% endblock %}
+
+{% block main %}
+    <h2 style="padding-bottom: 5%"><b>{{ username }}'s Beers!</b></h2>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Beer</th>
+                    <th scope="col">Brewery</th>
+                    <th scope="col">Your Rating</th>
+                    <th scope="col">Tasting Notes</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                {% for x in ratings %}
+                    <tr>
+                        <td>{{ x.beer_name }}</td>
+                        <td>{{ x.brewery_name }}</td>
+                        <td>{{ x.rating }}</td>
+                        <td>{{ x.tasting_notes }}</td>
+                        <td><form action="/beer" method="get">
+                            <button class="btn btn-outline-primary btn-sm" type="submit" name="rate_beer" value="{{ x.beer_id }}">UPDATE RATING</button>
+                        </form></td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+{% endblock %}

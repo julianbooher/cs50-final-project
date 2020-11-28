@@ -1,0 +1,110 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+h1{
+    padding-bottom: 3%;
+}
+table, th, td{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+}
+
+th, td{
+    padding: 15px;
+    text-align: left;
+}
+.table-responsive{
+    height: 1000px !important;
+    overflow: scroll;
+}
+#myInput{
+    width: 100%;
+}
+dt,dd{
+    display: inline;
+    white-space: nowrap;
+}
+.beerInfoTable{
+    width: 50%;
+    margin: auto;
+}
+.beerInfoTableRow{
+    border-top: 1px solid rgba(192, 192, 192, .8);
+    border-top: 1px solid rgba(192, 192, 192);
+    border-top-width: 50%;
+    padding: 5px;
+}
+.beerInfoRating{
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+#beerInfoImg{
+    max-width: 20%;
+    padding-bottom: 3%;
+    padding-top: 3%;
+
+}
+#beerRating{
+    width: 22%;
+}
+#beerNotes{
+    width: 50%;
+    height: 150px;
+    resize: none;
+}
+table th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #fff;
+}
+
+h1, h2, h3, h4, h5{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}

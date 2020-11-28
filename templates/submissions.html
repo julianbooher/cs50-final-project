@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Submissions
+{% endblock %}
+
+{% block main %}
+{% if message == 1 %}
+    <div class="alert alert-primary" role="alert">
+        <p>Brewery Approved!</p>
+        <p>{{ brewery }} in {{ city }}, {{ state }} was added to the database!</p>
+    </div>
+{% endif %}
+{% if message == 2 %}
+    <div class="alert alert-danger" role="alert">
+        <p>BREWERY DECLINED </p>
+        <p>{{ brewery }} in {{ city }}, {{ state }} was not added to the database!</p>
+    </div>
+{% endif %}
+{% if message == 3 %}
+    <div class="alert alert-primary" role="alert">
+        <p>Beer Approved!</p>
+        <p>{{ beer }} from {{ brewery }} added to the database!</p>
+    </div>
+{% endif %}
+
+{% if message == 4 %}
+    <div class="alert alert-danger" role="alert">
+        <p>Beer Declined!</p>
+        <p>{{ beer }} from {{ brewery }} not added to the database!</p>
+    </div>
+
+{% endif %}
+    <h1>Brewery Submissions</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Brewery Name</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Approve</th>
+                <th scope="col">Decline</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in brewery_submissions %}
+                <tr>
+                    <td>{{ x.brewery_name }}</td>
+                    <td>{{ x.city }}</td>
+                    <td>{{ x.state }}</td>
+                    <td>
+                        <form action="/submissions" method="post">
+                            <button class="btn btn-outline-primary btn-sm" type="submit" name="approve_brewery" value="{{ x.submission_id }}">Approve</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/submissions" method="post">
+                            <button class="btn btn-outline-danger btn-sm" type="submit" name="decline_brewery" value="{{ x.submission_id }}">Decline</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Beer Submissions</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Beer Name</th>
+                <th scope="col">Brewery</th>
+                <th scope="col">Style</th>
+                <th scope="col">ABV</th>
+                <th scope="col">Approve</th>
+                <th scope="col">Decline</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in beer_submissions %}
+                <tr>
+                    <td>{{ x.beer_name }}</td>
+                    <td>{{ x.brewery_name }}</td>
+                    <td>{{ x.style }}</td>
+                    <td>{{ x.abv }}</td>
+
+                    <td>
+                        <form action="/submissions" method="post">
+                            <button class="btn btn-outline-primary btn-sm" type="submit" name="approve_beer" value="{{ x.submission_id }}">Approve</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/submissions" method="post">
+                            <button class="btn btn-outline-danger btn-sm" type="submit" name="decline_beer" value="{{ x.submission_id }}">Decline</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

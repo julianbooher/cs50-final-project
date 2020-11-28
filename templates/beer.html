@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ beer }} by {{ brewery }}
+{% endblock %}
+
+{% block main %}
+{% if message == 1 %}
+    <div class="alert alert-primary" role="alert">
+        Review Submitted! <br>
+        Rating: {{ rating }} <br>
+        Tasting Notes: {{ tasting_notes }}
+    </div>
+{% endif %}
+{% if message == 2 %}
+    <div class="alert alert-primary" role="alert">
+        Rating Submitted! <br>
+        Rating: {{ rating }}
+    </div>
+{% endif %}
+{% if message == 3 %}
+    <div class="alert alert-primary" role="alert">
+        Review Updated! <br>
+        Rating: {{ rating }}
+        Tasting Notes: {{ tasting_notes }}
+    </div>
+{% endif %}
+{% if message == 4 %}
+    <div class="alert alert-primary" role="alert">
+        Rating Updated! <br>
+        Rating: {{ rating }}
+    </div>
+{% endif %}
+{% if error == 1 %}
+    <div class="alert alert-danger" role="alert">
+        <p>Please enter a beer rating.</p>
+    </div>
+{% endif %}
+<div class="beerInfo">
+    <h1> {{ beer }}</h1>
+    <h2> {{ brewery }}</h2>
+    <div class="beerInfoImgDiv">
+        <img id="beerInfoImg" src="{{ img }}">
+    </div>
+    <div class="smallBeerInfo">
+        <dl class="beerInfoTable">
+            <div class="beerInfoTableRow">
+                <dt class="beerInfoCategory">Style:</dt>
+                <dd class="beerInfoData">{{ style }}</dd>
+                <br>
+            </div>
+            <div class="beerInfoTableRow">
+                <dt class="beerInfoCategory">ABV:</dt>
+                <dd class="beerInfoData">{{ abv }}%</dd>
+                <br>
+            </div>
+            <div class="beerInfoTableRow">
+                <dt class="beerInfoCategory">Brewery:</dt>
+                <dd class="beerInfoData">{{ brewery }}</dd>
+                <br>
+            </div>
+            <div class="beerInfoTableRow">
+                <dt class="beerInfoCategory">Location:</dt>
+                <dd class="beerInfoData">{{ city }}, {{ state }}</dd>
+                <br>
+            </div>
+            <div class="beerInfoTableRow">
+                <dt class="beerInfoCategory">Average Rating:</dt>
+                <dd class="beerInfoData">{{ avg_rating }}</dd>
+                <br>
+            </div>
+      </dl>
+    </div>
+</div>
+{% if rating_check == None %}
+<div class = "beerInfoRating">
+    <form action="/beer" method="post">
+        <div class="form-group">
+            <input class="form-control" id="beerRating" name="beerRating" placeholder="Rating (1-100)" type="number" min="0" max="100">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" id="beerNotes" name="beerNotes" placeholder="Tasting Notes" type="text" maxlength="160"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" value="{{ current_beer }}" name="submit_rating">Rate Beer</button>
+    </form>
+</div>
+{% endif %}
+{% if rating_check != None %}
+<div class = "beerInfoRating">
+    <form action="/beer" method="post">
+        <div class="form-group">
+            <input class="form-control" id="beerRating" name="beerRating" value="{{ rating_check[0]["rating"] }}" type="number" min="0" max="100">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" id="beerNotes" name="beerNotes" placeholder="Tasting Notes" type="text" maxlength="160">{{ rating_check[0]["tasting_notes"] }}</textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" value="{{ current_beer }}" name="update_rating">Update Rating</button>
+    </form>
+</div>
+{% endif %}
+
+
+
+{% endblock %}

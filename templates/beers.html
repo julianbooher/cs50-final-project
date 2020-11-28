@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Beer Database
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h1>Beers!</h1>
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Beer Name</th>
+                        <th scope="col">Brewery</th>
+                        <th scope="col">Style</th>
+                        <th scope="col">ABV</th>
+                        <th scope="col">Avg Rating</th>
+                        <th scope="col"></th>
+
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    {% for x in beers %}
+                        <tr>
+                            <td>{{ x.beer_name }}</td>
+                            <td>{{ x.brewery_name }}</td>
+                            <td>{{ x.style }}</td>
+                            <td>{{ x.abv }}%</td>
+                            <td>{{ x.avg_rating }}</td>
+                            <td>
+                                <form action="/beer" method="get">
+                                    <button class="btn btn-outline-primary btn-sm" type="submit" name="rate_beer" value="{{ x.beer_id }}">RATE BEER</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+{% endblock %}

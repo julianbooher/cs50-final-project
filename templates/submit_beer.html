@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Submit a Brewery!
+{% endblock %}
+
+{% block main %}
+    {% if error == 1 %}
+        <div class="alert alert-danger" role="alert">
+            <p>Please enter a beer name, ABV, style, brewery, and an Image URL.</p>
+        </div>
+    {% endif %}
+    {% if message == 1 %}
+        <div class="alert alert-primary" role="alert">
+            <p>{{ name }}, an {{ style_name }} from {{ brewery_name }} has been submitted for approval to the beer database.</p>
+        </div>
+    {% endif %}
+    <h1>Beer Submission</h1>
+    <form name="beer submission" action="/submit_beer" method="post">
+        <div class="form-group">
+            <input class="form-control" name="name" placeholder="Beer Name" type="text">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="abv" placeholder="ABV" type="number" step="0.01">
+        </div>
+
+        <div class="form-group">
+            <select class="selectpicker" name="style" data-live-search="true" data-size="5">
+                <option disabled="" selected="" value="">Style</option>
+                {% for x in styles %}
+                <option value="{{ x.style_id }}">{{ x.style }}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="selectpicker" name="brewery" data-live-search="true" data-size="5">
+                <option disabled="" selected="" value="">Brewery</option>
+                {% for x in breweries %}
+                <option value="{{ x.brewery_id }}">{{ x.brewery_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="img" placeholder="IMG URL" type="text">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+{% endblock %}

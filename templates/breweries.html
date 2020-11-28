@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Beer Database
+{% endblock %}
+
+{% block main %}
+    <h1>Breweries!</h1>
+    <div class="container">
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Brewery Name</th>
+                        <th scope="col">City</th>
+                        <th scope="col">State</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    {% for x in breweries %}
+                        <tr>
+                            <td>{{ x.brewery_name }}</td>
+                            <td>{{ x.city }}</td>
+                            <td>{{ x.state }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+{% endblock %}
